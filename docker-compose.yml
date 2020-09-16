@@ -54,7 +54,7 @@ services:
   web:
     build: web
     ports:
-      - "80:80"
+      - "80:82"
       - "443:443"
     read_only: true
     restart: unless-stopped
@@ -62,3 +62,20 @@ services:
       # This directory must have cert files if you want to enable SSL
       - ./volumes/web/cert:/cert:ro
       - /etc/localtime:/etc/localtime:ro
+
+  pgadmin:
+      container_name: pgadmin_container
+      image: dpage/pgadmin4
+      environment:
+        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      volumes:
+        - pgadmin:/root/.pgadmin
+      ports:
+        - "${PGADMIN_PORT:-5050}:85"
+      restart: unless-stopped
+
+volumes:
+    db:
+    pgadmin:
+    web:
