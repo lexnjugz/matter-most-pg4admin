@@ -11,7 +11,7 @@ COPY ./security.conf /etc/nginx/conf.d/
 COPY entrypoint.sh /
 
 #Healthcheck to make sure container is ready
-HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:8010 || exit 1
 
 ENTRYPOINT ["/entrypoint.sh"]
 
